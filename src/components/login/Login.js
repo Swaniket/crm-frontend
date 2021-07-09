@@ -41,7 +41,7 @@ function LoginForm({handleOnChange, handleOnSubmit, fromSwitcher, email, passwor
 
         <Row>
             <Col>
-                <a href="#!" onClick={() => fromSwitcher('reset')}>Forget Password</a>
+                <a href="#!"  className="links" onClick={() => fromSwitcher('reset')}>Forget Password</a>
             </Col>
         </Row>
       </Container>

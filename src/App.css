@@ -11,10 +11,10 @@
   border: 0.5px solid #DD751E !important;
   color: #DD751E !important;
   box-shadow: 0 5px 5px 0 rgba(133,133,133,0.25) !important;
-  transform: scale(0.95) !important;
+  transform: scale(0.98) !important;
 }
 
-.heading-text {
+.heading-text, .links {
     background: linear-gradient(45deg, #f3ec78, #ec235c) !important;
     -webkit-text-fill-color: transparent !important; 
     background-clip: text !important;

@@ -36,7 +36,7 @@ function ResetPassword({
 
         <Row>
           <Col>
-            <a href="#!" onClick={() => fromSwitcher("login")}>
+            <a href="#!" className="links" onClick={() => fromSwitcher("login")}>
               Login
             </a>
           </Col>
