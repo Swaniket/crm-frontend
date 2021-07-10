@@ -2,12 +2,13 @@ import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import TicketTable from "../../components/ticket-table/TicketTable";
 import tickets from "../../assets/data/dummy-ticket.json";
+import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
 
 function Dashboard() {
   return (
     <Container>
       <Row>
-        <Col>{/* <PageBreadcrumb page="Dashboard" /> */}</Col>
+        <Col><PageBreadcrumb page="Dashboard" /></Col>
       </Row>
       <Row style={{ textAlign: "center" }} className="mb-5">
         <Col>

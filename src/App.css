@@ -34,11 +34,6 @@ input[type=email]:focus, input[type=password]:focus {
     padding-left: 20px !important;
 } */
 
-
-
-
-
-
 .default-layout {
   display: grid;
   grid-template-rows: 80px auto 3rem;
@@ -59,4 +54,10 @@ footer{
   grid-area: footer;
   background: #F9AA33;
   padding: 1rem;
+}
+
+.breadcrumb {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
