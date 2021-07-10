@@ -31,3 +31,30 @@ input[type=email]:focus, input[type=password]:focus {
     box-shadow: 0 1px 0 0 #F9AA33 !important;
     padding-left: 20px !important;
 }
+
+
+
+
+
+
+.default-layout {
+  display: grid;
+  grid-template-rows: 80px auto 3rem;
+  grid-template-areas:
+  "header"
+  "main"
+  "footer"
+}
+
+header {
+  grid-area: header;
+}
+main {
+  grid-area: main;
+  min-height: 87vh;
+}
+footer{
+  grid-area: footer;
+  background: #F9AA33;
+  padding: 1rem;
+}
