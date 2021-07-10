@@ -1,6 +1,5 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import logo from "../../images/logo.png";
 
 function Header() {
   return (
@@ -11,7 +10,7 @@ function Header() {
           width="50"
           height="25"
           fill="currentColor"
-          class="bi bi-stickies"
+          className="bi bi-stickies"
           viewBox="0 0 16 16"
         >
           <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5V13a1 1 0 0 0 1 1V1.5a.5.5 0 0 1 .5-.5H14a1 1 0 0 0-1-1H1.5z" />

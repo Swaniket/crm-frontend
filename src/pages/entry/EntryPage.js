@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Jumbotron } from "react-bootstrap";
+import { Card, Jumbotron } from "react-bootstrap";
 import LoginForm from "../../components/login/Login";
 import ResetPassword from "../../components/password-reset/ResetPassword";
 import "./EntryStyle.css";
@@ -51,7 +51,6 @@ function EntryPage() {
 
   return (
     <div className="entry-page">
-      <Jumbotron>
         {selectedForm === "login" && (
           <LoginForm
             handleOnChange={handleOnChange}
@@ -70,7 +69,6 @@ function EntryPage() {
             email={email}
           />
         )}
-      </Jumbotron>
     </div>
   );
 }

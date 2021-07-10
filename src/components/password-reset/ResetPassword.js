@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Card } from "react-bootstrap";
 
 function ResetPassword({
   handleOnChange,
@@ -8,41 +8,39 @@ function ResetPassword({
   email,
 }) {
   return (
-    <div>
+    <Card>
       <Container>
-        <Row>
-          <Col>
-            <h1 className="heading-text">RESET PASSWORD</h1>
-            <hr />
-            <Form onSubmit={handleOnResetSubmit}>
-              <Form.Group>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={handleOnChange}
-                  placeholder="Client Email"
-                  required
-                />
-              </Form.Group>
+        <Card.Body>
+          <Card.Title className="heading-text">Reset Password</Card.Title>
+        </Card.Body>
 
-              <Button type="submit" className="button-global-primary" block>
-                Reset
-              </Button>
-            </Form>
-            <hr />
-          </Col>
-        </Row>
+        <Card.Body>
+          <Form onSubmit={handleOnResetSubmit}>
+            <Form.Group>
+              <Form.Control
+                type="email"
+                name="email"
+                className="mb-2"
+                value={email}
+                onChange={handleOnChange}
+                placeholder="Client Email"
+                required
+              />
+            </Form.Group>
 
-        <Row>
-          <Col>
-            <a href="#!" className="links" onClick={() => fromSwitcher("login")}>
-              Login
-            </a>
-          </Col>
-        </Row>
+            <Button type="submit" className="mt-2">
+              Reset
+            </Button>
+          </Form>
+        </Card.Body>
+
+        <Card.Body className="link-text">
+          <Card.Link href="#!" onClick={() => fromSwitcher("login")}>
+            Login
+          </Card.Link>
+        </Card.Body>
       </Container>
-    </div>
+    </Card>
   );
 }
 

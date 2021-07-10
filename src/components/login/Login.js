@@ -1,51 +1,58 @@
 import React from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Card } from "react-bootstrap";
 
-function LoginForm({handleOnChange, handleOnSubmit, fromSwitcher, email, password}) {
+function LoginForm({
+  handleOnChange,
+  handleOnSubmit,
+  fromSwitcher,
+  email,
+  password,
+}) {
   return (
-    <div>
+    <Card>
       <Container>
-        <Row>
-          <Col>
-            <h1 className="heading-text">CLIENT LOGIN</h1>
-            <hr />
-            <Form onSubmit={handleOnSubmit}>
-              <Form.Group>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value = {email}
-                  onChange = {handleOnChange}
-                  placeholder="Client Email"
-                  required
-                />
-              </Form.Group>
+        <Card.Body>
+          <Card.Title className="heading-text">Client Login</Card.Title>
+        </Card.Body>
+        <Card.Body>
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Group>
+              <Form.Control
+                type="email"
+                name="email"
+                className="mb-2"
+                value={email}
+                onChange={handleOnChange}
+                placeholder="Client Email"
+                required
+              />
+            </Form.Group>
 
-              <Form.Group>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value = {password}
-                  onChange = {handleOnChange}
-                  placeholder="Password"
-                  required
-                />
-              </Form.Group>
-              <Button type="submit" className="button-global-primary" block>
-                Login
-              </Button>
-            </Form>
-            <hr/>
-          </Col>
-        </Row>
+            <Form.Group>
+              <Form.Control
+                type="password"
+                name="password"
+                className="mb-2"
+                value={password}
+                onChange={handleOnChange}
+                placeholder="Password"
+                required
+              />
+            </Form.Group>
 
-        <Row>
-            <Col>
-                <a href="#!"  className="links" onClick={() => fromSwitcher('reset')}>Forget Password</a>
-            </Col>
-        </Row>
+            <Button type="submit" className="mt-2">
+              Login
+            </Button>
+          </Form>
+        </Card.Body>
+
+        <Card.Body className="link-text">
+          <Card.Link href="#!" onClick={() => fromSwitcher("reset")}>
+            Forget Password
+          </Card.Link>
+        </Card.Body>
       </Container>
-    </div>
+    </Card>
   );
 }
 

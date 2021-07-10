@@ -1,7 +1,8 @@
-.btn-primary {
+/* .btn-primary {
   background-color: #DD751E !important;
   border-color: #DD751E !important;
   color: #fafafa !important;
+  border-radius: 25px !important;
   box-shadow: 0 15px 15px 0 rgba(133, 133, 133, 0.25) !important;
   transition: 350ms ease-in-out, box-shadow 300ms ease-in-out !important;
 }
@@ -10,11 +11,12 @@
   background-color: #fafafa !important;
   border: 0.5px solid #DD751E !important;
   color: #DD751E !important;
+  border-radius: 25px !important;
   box-shadow: 0 5px 5px 0 rgba(133,133,133,0.25) !important;
   transform: scale(0.98) !important;
-}
+} */
 
-.heading-text, .links {
+/* .heading-text, .links {
     background: linear-gradient(45deg, #f3ec78, #ec235c) !important;
     -webkit-text-fill-color: transparent !important; 
     background-clip: text !important;
@@ -30,7 +32,7 @@ input[type=email]:focus, input[type=password]:focus {
 	border: 0.5px solid #F9AA33 !important;
     box-shadow: 0 1px 0 0 #F9AA33 !important;
     padding-left: 20px !important;
-}
+} */
 
 
 
