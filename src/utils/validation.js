@@ -1,0 +1,1 @@
+export const shortText = (str) => str.length > 3 && str.length <= 100

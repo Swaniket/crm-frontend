@@ -12,7 +12,7 @@ function LoginForm({
     <Card>
       <Container>
         <Card.Body>
-          <Card.Title className="heading-text">Client Login</Card.Title>
+          <Card.Title className="heading-text text-center">Client Login</Card.Title>
         </Card.Body>
         <Card.Body>
           <Form onSubmit={handleOnSubmit}>

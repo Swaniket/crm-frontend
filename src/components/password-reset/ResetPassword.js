@@ -11,7 +11,7 @@ function ResetPassword({
     <Card>
       <Container>
         <Card.Body>
-          <Card.Title className="heading-text">Reset Password</Card.Title>
+          <Card.Title className="heading-text text-center">Reset Password</Card.Title>
         </Card.Body>
 
         <Card.Body>
