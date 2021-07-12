@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 
 function TicketTable({ tickets }) {
   return (
-    <Table striped bordered hover>
+    <Table borderless hover>
       <thead>
         <tr>
           <th>#</th>
@@ -16,7 +16,7 @@ function TicketTable({ tickets }) {
       <tbody>
         {tickets.length ? (
           tickets.map((ticket) => (
-            <tr key={ticket.id}>
+            <tr key={ticket.id} className="table-secondary">
               <td>{ticket.id}</td>
               <td>{ticket.subject}</td>
               <td>{ticket.status}</td>

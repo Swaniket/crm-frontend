@@ -44,7 +44,7 @@ function Dashboard() {
       <Row>
         <Col className="mt-2">Recently Added tickets</Col>
       </Row>
-      <hr />
+      <hr/>
 
       <Row>
         <Col className="recent-ticket"><TicketTable tickets={tickets}/></Col>

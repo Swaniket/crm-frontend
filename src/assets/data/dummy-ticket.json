@@ -7,7 +7,7 @@
     },
     {
         "id": 2,
-        "subject": "SSL Error",
+        "subject": "Email Certificate Expired",
         "status": "Client Response Pending",
         "addedAt": "2020-09-23"
     },
@@ -19,7 +19,7 @@
     },
     {
         "id": 4,
-        "subject": "SSL Error",
+        "subject": "Email Certificate Expired",
         "status": "Client Response Pending",
         "addedAt": "2020-09-23"
     },
@@ -43,7 +43,7 @@
     },
     {
         "id": 8,
-        "subject": "SSL Error",
+        "subject": "Issue with Email",
         "status": "Client Response Pending",
         "addedAt": "2020-09-23"
     },
@@ -55,7 +55,7 @@
     },
     {
         "id": 10,
-        "subject": "SSL Error",
+        "subject": "Issue with app crashing",
         "status": "Client Response Pending",
         "addedAt": "2020-09-23"
     }

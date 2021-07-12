@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
+import FloatingLabel from "react-bootstrap-floating-label";
 
 function LoginForm({
   handleOnChange,
@@ -12,32 +13,44 @@ function LoginForm({
     <Card>
       <Container>
         <Card.Body>
-          <Card.Title className="heading-text text-center">Client Login</Card.Title>
+          <Card.Title className="heading-text text-center">
+            Client Login
+          </Card.Title>
         </Card.Body>
         <Card.Body>
           <Form onSubmit={handleOnSubmit}>
             <Form.Group>
-              <Form.Control
-                type="email"
-                name="email"
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Client Email"
                 className="mb-2"
-                value={email}
-                onChange={handleOnChange}
-                placeholder="Client Email"
-                required
-              />
+              >
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleOnChange}
+                  placeholder="Client Email"
+                  required
+                />
+              </FloatingLabel>
             </Form.Group>
 
             <Form.Group>
-              <Form.Control
-                type="password"
-                name="password"
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Password"
                 className="mb-2"
-                value={password}
-                onChange={handleOnChange}
-                placeholder="Password"
-                required
-              />
+              >
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleOnChange}
+                  placeholder="Password"
+                  required
+                />
+              </FloatingLabel>
             </Form.Group>
 
             <Button type="submit" className="mt-2">

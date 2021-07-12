@@ -3,7 +3,7 @@ import { Navbar, Nav } from "react-bootstrap";
 
 function Header() {
   return (
-    <Navbar collapseOnSelect expand="md" style={{backgroundColor: "#eae9f5"}}>
+    <Navbar collapseOnSelect expand="md" style={{backgroundColor: "white", boxShadow: "0 20px 20px 0 rgba(182, 182, 182, 0.2)", justifyContent: "center"}}>
       <Navbar.Brand>
         <svg
           xmlns="http://www.w3.org/2000/svg"
