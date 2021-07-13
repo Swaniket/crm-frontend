@@ -97,11 +97,12 @@ body {
 
 .table {
   transition: 250ms ease-in-out, box-shadow 300ms ease-in-out !important;
-  border-radius: 20px !important;
+  border-radius: 15px !important;
   box-shadow: 0 15px 15px 0 rgba(182, 182, 182, 0.2) !important;
 }
 
-.table:hover, tr:hover {
+.table:hover {
   background-color: #dcdefc !important;
   box-shadow: 0 5px 5px 0 rgba(133,133,133,0.25) !important; 
+  /* border-radius: 20px !important; */
 }

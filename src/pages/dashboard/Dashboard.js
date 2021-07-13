@@ -1,5 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 import TicketTable from "../../components/ticket-table/TicketTable";
 import tickets from "../../assets/data/dummy-ticket.json";
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
@@ -33,11 +35,11 @@ function Dashboard() {
 
       <Row style={{ textAlign: "center" }} className="mb-5">
         <Col>
-          <div to="/add-ticket">
+          <Link to="/add-ticket">
             <Button className="btn-lg">
               <i className="fa fa-plus"></i> Create New Ticket
             </Button>
-          </div>
+          </Link>
         </Col>
       </Row>
 

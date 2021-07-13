@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
 import tickets from "../../assets/data/dummy-ticket.json";
 import MessageHistory from "../../components/message-history/MessageHistory";
 import ReplyTicket from "../../components/reply-ticket/ReplyTicket";
 
-const ticket = tickets[0];
+// const ticket = tickets[0];
 function Ticket() {
-  const [replyMessage, setReplyMessage] = useState("");
+  const {tId} = useParams()
 
-  useEffect(() => {}, [replyMessage]);
+  const [replyMessage, setReplyMessage] = useState("");
+  const [ticket, setTicket] = useState("");
+
+  useEffect(() => {
+    for (let i = 0; i < tickets.length; i++) {
+      if (tickets[i].id == tId) {
+        setTicket(tickets[i])
+        continue
+      }
+    }
+  }, [replyMessage, tId]);
 
   const handleOnChange = (e) => {
     setReplyMessage(e.target.value);
@@ -30,6 +42,7 @@ function Ticket() {
 
       <Row style={{ alignItems: "center" }}>
         <Col>
+        {tId}
           <div className="subject">
             <strong>Subject:</strong>{" "}
             <span className="text-muted">{ticket.subject}</span>
@@ -52,7 +65,7 @@ function Ticket() {
       <hr />
       <Row className="mt-3">
         <Col>
-          <MessageHistory message={ticket.history} />
+          {ticket.history && <MessageHistory message={ticket.history} />}
         </Col>
       </Row>
 
