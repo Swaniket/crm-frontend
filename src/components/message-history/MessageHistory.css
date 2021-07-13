@@ -1,0 +1,37 @@
+.message-history{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 15px;
+    /* height: 500px;
+    overflow-y: auto; */
+    
+}
+
+.message-history:nth-child(even) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.message {
+    padding: 2rem;
+    width: 85%;
+}
+
+.send {
+    background-color: #dcdefc;
+    transition: 250ms ease-in-out;
+    text-align: center;
+}
+
+.message-history:hover > .send {
+    background-color: #dcdefc;
+    color: #545fd3;
+}
+
+.scrollbar {
+    /* height: 300px; */
+    /* overflow-y: auto;
+    background-color: #fafbfe; */
+}

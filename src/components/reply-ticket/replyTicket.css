@@ -1,0 +1,13 @@
+.replybox {
+  border: lightgray !important;
+  box-shadow: 0 15px 15px 0 rgba(182, 182, 182, 0.2) !important;
+  transition: 250ms ease-in-out !important;
+}
+
+.replybox:focus {
+  padding-left: 20px !important;
+  border: lightgray !important;
+  border-radius: 15px;
+  box-shadow: 0 5px 5px 0 rgba(133, 133, 133, 0.25) !important;
+  transform: scale(1.01) !important;
+}
