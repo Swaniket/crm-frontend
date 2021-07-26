@@ -1,8 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function TicketTable({ tickets }) {
+function TicketTable() {
+  const { searchTicketList, isLoading, error } = useSelector(
+    (state) => state.tickets
+  );
+
+  if (isLoading) return <h3>Loading...</h3>;
+
+  if (error) return <h3>{error}</h3>;
+
   return (
     <Table borderless hover>
       <thead>
@@ -15,15 +24,15 @@ function TicketTable({ tickets }) {
       </thead>
 
       <tbody>
-        {tickets.length ? (
-          tickets.map((ticket) => (
-            <tr key={ticket.id} className="table-secondary">
-              <td>{ticket.id}</td>
+        {searchTicketList.length ? (
+          searchTicketList.map((ticket) => (
+            <tr key={ticket._id} className="table-secondary">
+              <td>{ticket._id}</td>
               <td>
-                <Link to={`/ticket/${ticket.id}`}>{ticket.subject}</Link>
+                <Link to={`/ticket/${ticket._id}`}>{ticket.subject}</Link>
               </td>
               <td>{ticket.status}</td>
-              <td>{ticket.addedAt}</td>
+              <td>{ticket.openAt}</td>
             </tr>
           ))
         ) : (
