@@ -1,14 +1,54 @@
-import React from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
+import { loginPending, loginSuccess, loginFail } from "./loginSlice";
+import { userLogin } from "../../api/userApi";
 
-function LoginForm({
-  handleOnChange,
-  handleOnSubmit,
-  fromSwitcher,
-  email,
-  password,
-}) {
+function LoginForm({ fromSwitcher }) {
+  const dispatch = useDispatch();
+  const history = useHistory()
+  const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleOnChange = (e) => {
+    const { type, value } = e.target;
+    switch (type) {
+      case "email":
+        setEmail(value);
+        break;
+
+      case "password":
+        setPassword(value);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      return alert("Fill Up the form");
+    }
+    console.log(email, password);
+    dispatch(loginPending());
+    try {
+      const isAuth = await userLogin({ email, password });
+      if(isAuth.status === "error"){
+        return dispatch(loginFail(isAuth.message));
+      }
+      dispatch(loginSuccess())
+      history.push("/dashboard")
+    } catch (error) {
+      dispatch(loginFail(error.message));
+    }
+  };
+
   return (
     <Card>
       <Container>
@@ -18,42 +58,46 @@ function LoginForm({
           </Card.Title>
         </Card.Body>
         <Card.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleOnSubmit}>
             <Form.Group>
               <FloatingLabel
+                as="input"
                 controlId="floatingInput"
                 label="Client Email"
                 className="mb-2"
-              >
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={email}
-                  onChange={handleOnChange}
-                  placeholder="Client Email"
-                  required
-                />
-              </FloatingLabel>
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleOnChange}
+                required
+              ></FloatingLabel>
             </Form.Group>
 
             <Form.Group>
               <FloatingLabel
+                as="input"
                 controlId="floatingInput"
                 label="Password"
                 className="mb-2"
-              >
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={handleOnChange}
-                  placeholder="Password"
-                  required
-                />
-              </FloatingLabel>
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleOnChange}
+                required
+              ></FloatingLabel>
             </Form.Group>
 
-            <Button type="submit" className="mt-2">
+            <Button type="submit" className="mt-2" disabled={isLoading}>
+              {isLoading && (
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}{" "}
               Login
             </Button>
           </Form>
