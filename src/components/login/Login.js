@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 import { loginPending, loginSuccess, loginFail } from "./loginSlice";
+import { getUserProfile } from "../../pages/dashboard/userAction";
 import { userLogin } from "../../api/userApi";
 
 function LoginForm({ fromSwitcher }) {
@@ -43,6 +44,7 @@ function LoginForm({ fromSwitcher }) {
         return dispatch(loginFail(isAuth.message));
       }
       dispatch(loginSuccess())
+      dispatch(getUserProfile())
       history.push("/dashboard")
     } catch (error) {
       dispatch(loginFail(error.message));
