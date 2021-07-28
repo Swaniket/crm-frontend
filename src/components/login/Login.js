@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
@@ -9,8 +9,13 @@ import { userLogin } from "../../api/userApi";
 
 function LoginForm({ fromSwitcher }) {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    (sessionStorage.getItem("accessJWT")) &&
+      history.push("/dashboard");
+  }, [isAuth, history]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,16 +41,15 @@ function LoginForm({ fromSwitcher }) {
     if (!email || !password) {
       return alert("Fill Up the form");
     }
-    console.log(email, password);
     dispatch(loginPending());
     try {
       const isAuth = await userLogin({ email, password });
-      if(isAuth.status === "error"){
+      if (isAuth.status === "error") {
         return dispatch(loginFail(isAuth.message));
       }
-      dispatch(loginSuccess())
-      dispatch(getUserProfile())
-      history.push("/dashboard")
+      dispatch(loginSuccess());
+      dispatch(getUserProfile());
+      history.push("/dashboard");
     } catch (error) {
       dispatch(loginFail(error.message));
     }

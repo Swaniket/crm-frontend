@@ -2,14 +2,18 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom";
+import { userLogout } from "../../api/userApi";
 
 function Header() {
   const history = useHistory();
 
   const logMeOut = () => {
-    sessionStorage.removeItem('accessJWT')
+    sessionStorage.removeItem("accessJWT");
+    localStorage.removeItem("crmSite");
+    userLogout();
     history.push("/");
   };
+
   return (
     <Navbar
       collapseOnSelect
