@@ -7,6 +7,7 @@ function Header() {
   const history = useHistory();
 
   const logMeOut = () => {
+    sessionStorage.removeItem('accessJWT')
     history.push("/");
   };
   return (
