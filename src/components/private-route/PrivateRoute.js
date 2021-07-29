@@ -7,21 +7,21 @@ import { fetchNewAccessJWT } from "../../api/userApi";
 
 // Sets up the router for private routes
 function PrivateRoute({ children, ...rest }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.login);
 
   useEffect(() => {
     const updateAccessJWT = async () => {
-      const result = await fetchNewAccessJWT()
-      if (result) dispatch(loginSuccess())
-    }
+      const result = await fetchNewAccessJWT();
+      if (result) dispatch(loginSuccess());
+    };
 
-    updateAccessJWT()
+    !sessionStorage.getItem("accessJWT") &&
+      localStorage.getItem("crmSite") &&
+      updateAccessJWT();
 
-    if(sessionStorage.getItem("accessJWT")) {
-      dispatch(loginSuccess())
-    }
-  }, [dispatch]);
+    !isAuth && sessionStorage.getItem("accessJWT") && dispatch(loginSuccess());
+  }, [dispatch, isAuth]);
 
   return (
     <Route
