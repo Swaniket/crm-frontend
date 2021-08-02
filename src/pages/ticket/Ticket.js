@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
 import MessageHistory from "../../components/message-history/MessageHistory";
 import ReplyTicket from "../../components/reply-ticket/ReplyTicket";
-import { fetchSingleTickets } from "../ticket-list/ticketsAction";
+import { fetchSingleTickets, closeTicket } from "../ticket-list/ticketsAction";
 
 function Ticket() {
   const dispatch = useDispatch();
+  const { replyMsg } = useSelector((state) => state.tickets);
 
   const { tId } = useParams();
   const { isLoading, error, selectedTicket } = useSelector(
@@ -32,6 +33,7 @@ function Ticket() {
         <Col>
           {isLoading && <Spinner variant="primary" animation="border" />}
           {error && <Alert variant="danger">{error}</Alert>}
+          {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
         </Col>
       </Row>
 
@@ -55,7 +57,11 @@ function Ticket() {
           </div>
         </Col>
         <Col as="div" style={{ textAlign: "right" }}>
-          <Button className="btn-lg btn-outline-success">
+          <Button
+            className="btn-lg btn-outline-success"
+            onClick={() => dispatch(closeTicket(tId))}
+            disabled = {selectedTicket.status === "Closed"}
+          >
             <i className="fa fa-check"></i> Close This Ticket
           </Button>
         </Col>

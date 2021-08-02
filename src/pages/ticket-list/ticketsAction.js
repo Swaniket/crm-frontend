@@ -9,11 +9,15 @@ import {
   replyTicketLoading,
   replyTicketSuccess,
   replyTicketFail,
+  closeTicketLoading,
+  closeTicketSuccess,
+  closeTicketFail,
 } from "./ticketsSlice";
 import {
   getAllTickets,
   getSingleTicket,
   updateTicketReply,
+  updateTicketStatusClose,
 } from "../../api/ticketApi";
 
 // Action for fetching All Tickets
@@ -21,7 +25,8 @@ export const fetchAllTickets = () => async (dispatch) => {
   dispatch(fetchTicketLoading());
   try {
     const result = await getAllTickets();
-    result.data.result.length && dispatch(fetchTicketSuccess(result.data.result));
+    result.data.result.length &&
+      dispatch(fetchTicketSuccess(result.data.result));
   } catch (e) {
     dispatch(fetchTicketFail(e.message));
   }
@@ -37,7 +42,11 @@ export const fetchSingleTickets = (_id) => async (dispatch) => {
   dispatch(fetchSingleTicketLoading());
   try {
     const result = await getSingleTicket(_id);
-    dispatch(fetchSingleTicketSuccess(result.data.result !== undefined &&result.data.result));
+    dispatch(
+      fetchSingleTicketSuccess(
+        result.data.result !== undefined && result.data.result
+      )
+    );
   } catch (e) {
     dispatch(fetchSingleTicketFail(e.message));
   }
@@ -52,10 +61,27 @@ export const replyOnTickets = (_id, replyMsgObj) => async (dispatch) => {
     if (result.status === "error") {
       return dispatch(replyTicketFail(result.message));
     }
-    dispatch(fetchSingleTickets(_id))
+    dispatch(fetchSingleTickets(_id));
     dispatch(replyTicketSuccess(result.message));
   } catch (e) {
     console.log(e);
     dispatch(replyTicketFail(e.message));
+  }
+};
+
+// Action for Closing a ticket
+export const closeTicket = (_id) => async (dispatch) => {
+  dispatch(closeTicketLoading());
+  try {
+    const result = await updateTicketStatusClose(_id);
+    console.log(result);
+    if (result.status === "error") {
+      return dispatch(closeTicketFail(result.message));
+    }
+    dispatch(fetchSingleTickets(_id));
+    dispatch(closeTicketSuccess(result.message));
+  } catch (e) {
+    console.log(e);
+    dispatch(closeTicketFail(e.message));
   }
 };

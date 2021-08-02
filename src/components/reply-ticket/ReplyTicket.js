@@ -5,7 +5,6 @@ import { replyOnTickets } from "../../pages/ticket-list/ticketsAction";
 import "./replyTicket.css";
 
 function ReplyTicket({ _id }) {
-  const { replyMsg } = useSelector((state) => state.tickets);
   const dispatch = useDispatch();
   const [replyMessage, setReplyMessage] = useState("");
 
@@ -28,26 +27,23 @@ function ReplyTicket({ _id }) {
   };
 
   return (
-    <div>
-      {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
-      <Form onSubmit={handleOnSubmit}>
-        <Form.Control
-          placeholder="Type your reply..."
-          name="detail"
-          as="textarea"
-          rows="8"
-          className="mt-5 mb-3 replybox"
-          value={replyMessage}
-          onChange={handleOnChange}
-          required
-        />
-        <div className="mb-4" style={{ float: "right" }}>
-          <Button type="submit">
-            Reply <i className="fa fa-paper-plane" aria-hidden="true"></i>{" "}
-          </Button>
-        </div>
-      </Form>
-    </div>
+    <Form onSubmit={handleOnSubmit}>
+      <Form.Control
+        placeholder="Type your reply..."
+        name="detail"
+        as="textarea"
+        rows="8"
+        className="mt-5 mb-3 replybox"
+        value={replyMessage}
+        onChange={handleOnChange}
+        required
+      />
+      <div className="mb-4" style={{ float: "right" }}>
+        <Button type="submit">
+          Reply <i className="fa fa-paper-plane" aria-hidden="true"></i>{" "}
+        </Button>
+      </div>
+    </Form>
   );
 }
 
