@@ -32,7 +32,9 @@ function TicketTable() {
                 <Link to={`/ticket/${ticket._id}`}>{ticket.subject}</Link>
               </td>
               <td>{ticket.status}</td>
-              <td>{ticket.openAt}</td>
+              <td>
+                {ticket.openAt && new Date(ticket.openAt).toLocaleString()}
+              </td>
             </tr>
           ))
         ) : (

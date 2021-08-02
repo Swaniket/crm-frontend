@@ -1,36 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Row, Col, Button, Spinner, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
-import tickets from "../../assets/data/dummy-ticket.json";
 import MessageHistory from "../../components/message-history/MessageHistory";
 import ReplyTicket from "../../components/reply-ticket/ReplyTicket";
+import { fetchSingleTickets } from "../ticket-list/ticketsAction";
 
-// const ticket = tickets[0];
 function Ticket() {
-  const {tId} = useParams()
+  const dispatch = useDispatch();
 
-  const [replyMessage, setReplyMessage] = useState("");
-  const [ticket, setTicket] = useState("");
+  const { tId } = useParams();
+  const { isLoading, error, selectedTicket } = useSelector(
+    (state) => state.tickets
+  );
 
   useEffect(() => {
-    for (let i = 0; i < tickets.length; i++) {
-      if (tickets[i].id == tId) {
-        setTicket(tickets[i])
-        continue
-      }
-    }
-  }, [replyMessage, tId]);
-
-  const handleOnChange = (e) => {
-    setReplyMessage(e.target.value);
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
-    console.log(e.target.value)
-  }
+    dispatch(fetchSingleTickets(tId));
+  }, [dispatch, tId]);
 
   return (
     <Container>
@@ -40,20 +28,30 @@ function Ticket() {
         </Col>
       </Row>
 
+      <Row>
+        <Col>
+          {isLoading && <Spinner variant="primary" animation="border" />}
+          {error && <Alert variant="danger">{error}</Alert>}
+        </Col>
+      </Row>
+
       <Row style={{ alignItems: "center" }}>
         <Col>
-        {tId}
+          {tId}
           <div className="subject">
             <strong>Subject:</strong>{" "}
-            <span className="text-muted">{ticket.subject}</span>
+            <span className="text-muted">{selectedTicket.subject}</span>
           </div>
           <div className="date">
             <strong>Open Date:</strong>{" "}
-            <span className="text-muted">{ticket.addedAt}</span>
+            <span className="text-muted">
+              {selectedTicket.openAt &&
+                new Date(selectedTicket.openAt).toLocaleString()}
+            </span>
           </div>
           <div className="status">
             <strong>Status:</strong>{" "}
-            <span className="text-muted">{ticket.status}</span>
+            <span className="text-muted">{selectedTicket.status}</span>
           </div>
         </Col>
         <Col as="div" style={{ textAlign: "right" }}>
@@ -65,18 +63,15 @@ function Ticket() {
       <hr />
       <Row className="mt-3">
         <Col>
-          {ticket.history && <MessageHistory message={ticket.history} />}
+          {selectedTicket.conversation && (
+            <MessageHistory message={selectedTicket.conversation} />
+          )}
         </Col>
       </Row>
 
-      {/* <hr /> */}
       <Row className="mt-3">
         <Col>
-          <ReplyTicket
-            replyMessage={replyMessage}
-            handleOnChange={handleOnChange}
-            handleOnSubmit={handleOnSubmit}
-          />
+          <ReplyTicket _id={tId} />
         </Col>
       </Row>
     </Container>
