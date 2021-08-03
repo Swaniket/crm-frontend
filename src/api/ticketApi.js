@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const rootUrl = "http://localhost:3001/v1/";
-const getSingleTicketUrl = rootUrl + "ticket/";
+const ticketUrl = rootUrl + "ticket/";
 const closeTicketUrl = rootUrl + "ticket/close-ticket/";
 
 // Fetch all ticket backend API call
@@ -24,7 +24,7 @@ export const getAllTickets = () => {
 export const getSingleTicket = (_id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await axios.get(getSingleTicketUrl + _id, {
+      const result = await axios.get(ticketUrl + _id, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("accessJWT")}`,
         },
@@ -42,7 +42,7 @@ export const getSingleTicket = (_id) => {
 export const updateTicketReply = (_id, replyMsgObj) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await axios.put(getSingleTicketUrl + _id, replyMsgObj, {
+      const result = await axios.put(ticketUrl + _id, replyMsgObj, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("accessJWT")}`,
         },
@@ -68,6 +68,23 @@ export const updateTicketStatusClose = (_id) => {
           },
         }
       );
+      resolve(result.data);
+    } catch (e) {
+      console.log(e.message);
+      reject(e);
+    }
+  });
+};
+
+// Open a new ticket
+export const createNewTicket = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.post(ticketUrl, formData, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("accessJWT")}`,
+        },
+      });
       resolve(result.data);
     } catch (e) {
       console.log(e.message);

@@ -10,12 +10,10 @@ import { fetchSingleTickets, closeTicket } from "../ticket-list/ticketsAction";
 
 function Ticket() {
   const dispatch = useDispatch();
-  const { replyMsg } = useSelector((state) => state.tickets);
 
   const { tId } = useParams();
-  const { isLoading, error, selectedTicket } = useSelector(
-    (state) => state.tickets
-  );
+  const { isLoading, error, selectedTicket, replyMsg, replyTicketError } =
+    useSelector((state) => state.tickets);
 
   useEffect(() => {
     dispatch(fetchSingleTickets(tId));
@@ -33,6 +31,9 @@ function Ticket() {
         <Col>
           {isLoading && <Spinner variant="primary" animation="border" />}
           {error && <Alert variant="danger">{error}</Alert>}
+          {replyTicketError && (
+            <Alert variant="danger">{replyTicketError}</Alert>
+          )}
           {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
         </Col>
       </Row>
@@ -60,7 +61,7 @@ function Ticket() {
           <Button
             className="btn-lg btn-outline-success"
             onClick={() => dispatch(closeTicket(tId))}
-            disabled = {selectedTicket.status === "Closed"}
+            disabled={selectedTicket.status === "Closed"}
           >
             <i className="fa fa-check"></i> Close This Ticket
           </Button>
