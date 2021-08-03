@@ -4,11 +4,11 @@ import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import TicketTable from "../../components/ticket-table/TicketTable";
-// import tickets from "../../assets/data/dummy-ticket.json";
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { fetchAllTickets } from "../ticket-list/ticketsAction";
 
 function Dashboard() {
+  var pendingTickets = 0
   const dispatch = useDispatch();
   const { tickets } = useSelector((state) => state.tickets);
 
@@ -17,6 +17,17 @@ function Dashboard() {
       dispatch(fetchAllTickets());
     }
   }, [tickets, dispatch]);
+
+  console.log(tickets)
+
+  tickets.map(row => {
+    if (row.status !== "Closed") {
+      pendingTickets += 1
+    }
+    return pendingTickets
+  })
+
+  const totalTickets = tickets.length
 
   return (
     <Container>
@@ -30,7 +41,7 @@ function Dashboard() {
           <Card>
             <Card.Header>Total tickets:</Card.Header>
             <Card.Body>
-              <Card.Title> 10</Card.Title>
+              <Card.Title> {totalTickets}</Card.Title>
               <Card.Text></Card.Text>
             </Card.Body>
           </Card>
@@ -39,7 +50,7 @@ function Dashboard() {
           <Card>
             <Card.Header>Pending tickets:</Card.Header>
             <Card.Body>
-              <Card.Title> 20</Card.Title>
+              <Card.Title> {pendingTickets}</Card.Title>
               <Card.Text></Card.Text>
             </Card.Body>
           </Card>
