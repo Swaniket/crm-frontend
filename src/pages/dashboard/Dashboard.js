@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import TicketTable from "../../components/ticket-table/TicketTable";
-import tickets from "../../assets/data/dummy-ticket.json";
+// import tickets from "../../assets/data/dummy-ticket.json";
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
+import { fetchAllTickets } from "../ticket-list/ticketsAction";
 
 function Dashboard() {
+  const dispatch = useDispatch();
+  const { tickets } = useSelector((state) => state.tickets);
+
+  useEffect(() => {
+    if (!tickets.length) {
+      dispatch(fetchAllTickets());
+    }
+  }, [tickets, dispatch]);
+
   return (
     <Container>
       <Row>
-        <Col><PageBreadcrumb page="Dashboard" /></Col>
+        <Col>
+          <PageBreadcrumb page="Dashboard" />
+        </Col>
       </Row>
       <Row style={{ textAlign: "center" }} className="mb-5">
         <Col>
@@ -46,10 +59,12 @@ function Dashboard() {
       <Row>
         <Col className="mt-2">Recently Added tickets</Col>
       </Row>
-      <hr/>
+      <hr />
 
       <Row>
-        <Col className="recent-ticket"><TicketTable tickets={tickets}/></Col>
+        <Col className="recent-ticket">
+          <TicketTable tickets={tickets} />
+        </Col>
       </Row>
     </Container>
   );
