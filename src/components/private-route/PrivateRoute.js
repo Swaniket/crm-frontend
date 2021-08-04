@@ -26,6 +26,8 @@ function PrivateRoute({ children, ...rest }) {
       updateAccessJWT();
 
     !isAuth && sessionStorage.getItem("accessJWT") && dispatch(loginSuccess());
+
+    updateAccessJWT();
   }, [dispatch, isAuth, user._id]);
 
   return (

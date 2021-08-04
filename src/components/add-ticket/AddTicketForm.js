@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
 import { shortText } from "../../utils/validation";
 import { openNewTicket } from "./addTicketAction";
+import { resetSuccessMsg } from "./addTicketSlicer";
 
 const initialFromData = {
   subject: "",
@@ -28,7 +29,12 @@ function AddTicketForm() {
   const [fromData, setFromData] = useState(initialFromData);
   const [fromDataError, setFromDataError] = useState(initialFromError);
 
-  useEffect(() => {}, [fromData, fromDataError]);
+  useEffect(() => {
+    // Cleanup function
+    return () => {
+      successMsg && dispatch(resetSuccessMsg());
+    };
+  }, [fromData, fromDataError, successMsg, dispatch]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -64,7 +70,7 @@ function AddTicketForm() {
         </Card.Body>
         {error && <Alert variant="danger">{error}</Alert>}
         {successMsg && <Alert variant="success">{successMsg}</Alert>}
-        
+
         <Card.Body>
           <Form onSubmit={handleOnSubmit}>
             <Form.Group>
@@ -108,7 +114,7 @@ function AddTicketForm() {
             </Form.Group>
 
             <Button type="submit" className="mt-4 mb-3" block>
-            {isLoading && (
+              {isLoading && (
                 <Spinner
                   as="span"
                   animation="grow"
