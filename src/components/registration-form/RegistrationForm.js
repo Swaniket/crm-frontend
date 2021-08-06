@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
+import React from "react";
+import { Container, Form, Button, Card } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 
 const initialState = {
