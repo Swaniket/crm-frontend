@@ -1,0 +1,14 @@
+.registration-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading-text {
+    margin-top: 20px;
+}
+
+.link-text {
+  padding-bottom: 30px !important;
+}

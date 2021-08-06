@@ -13,8 +13,7 @@ function LoginForm({ fromSwitcher }) {
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
 
   useEffect(() => {
-    (sessionStorage.getItem("accessJWT")) &&
-      history.push("/dashboard");
+    sessionStorage.getItem("accessJWT") && history.push("/dashboard");
   }, [isAuth, history]);
 
   const [email, setEmail] = useState("");
@@ -111,8 +110,11 @@ function LoginForm({ fromSwitcher }) {
 
         <Card.Body className="link-text">
           <Card.Link href="#!" onClick={() => fromSwitcher("reset")}>
-            Forget Password
+            Forgot Password
           </Card.Link>
+          <Card.Text className="py-2">
+            Don't have an account? <a href="/registration">Register Now!</a>
+          </Card.Text>
         </Card.Body>
       </Container>
     </Card>
