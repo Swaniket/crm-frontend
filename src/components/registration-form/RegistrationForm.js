@@ -1,26 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 
 const initialState = {
-  name: "Prem Acharya",
-  phone: "0410000000",
-  email: "fakeemail@email.com",
-  company: "Dented Code",
-  address: "George st Sydney",
-  password: "sfsd#3Dsg",
-  confirmPass: "sfsd#3Dsg",
+  name: "",
+  phone: "",
+  email: "",
+  company: "",
+  address: "",
+  password: "",
+  confirmPass: "",
+};
+
+const passVerificationError = {
+  hasLength: false,
+  hasUpper: false,
+  hasLower: false,
+  hasNumber: false,
+  hasSpecial: false,
+  confirmPassword: false,
 };
 
 function RegistrationForm() {
-  const handleOnChange = (e) => {};
+  const [newUser, setNewUser] = useState(initialState);
+  const [passwordError, setPasswordError] = useState(passVerificationError);
+
+  useEffect(() => {}, [newUser]);
+
+  const handleOnChange = (e) => {
+    const { id, value } = e.target;
+    setNewUser({ ...newUser, [id]: value });
+
+    if (id === "password") {
+      const hasLength = value.length > 8;
+      const hasUpper = /[A-Z]/.test(value);
+      const hasLower = /[a-z]/.test(value);
+      const hasNumber = /[0-9]/.test(value);
+      const hasSpecial = /[!,@,#,$,%,&]/.test(value);
+
+      setPasswordError({
+        ...passwordError,
+        hasLength,
+        hasUpper,
+        hasLower,
+        hasNumber,
+        hasSpecial,
+      });
+    }
+
+    if (id === "confirmPass") {
+      setPasswordError({
+        ...passwordError,
+        confirmPassword: newUser.password === value,
+      });
+    }
+  };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    // console.log(newUser);
   };
 
   return (
-    <Card>
+    <Card className="py-4">
       <Container>
         <Card.Body>
           <Card.Title className="heading-text text-center">
@@ -34,12 +76,12 @@ function RegistrationForm() {
               <FloatingLabel
                 as="input"
                 controlId="floatingInput"
-                label="Name"
-                className="mb-2"
                 type="text"
-                name="name"
-                value={initialState.name}
+                label="Name"
+                inputId="name"
+                className="mb-2"
                 onChange={handleOnChange}
+                value={newUser.name}
                 required
               ></FloatingLabel>
             </Form.Group>
@@ -51,13 +93,12 @@ function RegistrationForm() {
                 label="Phone No."
                 className="mb-2"
                 type="text"
-                name="phone"
-                value={initialState.phone}
+                inputId="phone"
+                value={newUser.phone}
                 onChange={handleOnChange}
                 required
               ></FloatingLabel>
             </Form.Group>
-
             <Form.Group>
               <FloatingLabel
                 as="input"
@@ -65,8 +106,8 @@ function RegistrationForm() {
                 label="Company Email"
                 className="mb-2"
                 type="email"
-                name="email"
-                value={initialState.email}
+                inputId="email"
+                value={newUser.email}
                 onChange={handleOnChange}
                 required
               ></FloatingLabel>
@@ -76,11 +117,11 @@ function RegistrationForm() {
               <FloatingLabel
                 as="input"
                 controlId="floatingInput"
-                label="Company"
+                label="Company Name"
                 className="mb-2"
                 type="text"
-                name="company"
-                value={initialState.company}
+                inputId="company"
+                value={newUser.company}
                 onChange={handleOnChange}
                 required
               ></FloatingLabel>
@@ -93,8 +134,22 @@ function RegistrationForm() {
                 label="Address"
                 className="mb-2"
                 type="text"
-                name="address"
-                value={initialState.address}
+                inputId="address"
+                value={newUser.address}
+                onChange={handleOnChange}
+                required
+              ></FloatingLabel>
+            </Form.Group>
+            <hr />
+            <Form.Group>
+              <FloatingLabel
+                as="input"
+                controlId="floatingInput"
+                label="Password"
+                className="mb-2"
+                type="password"
+                inputId="password"
+                value={newUser.password}
                 onChange={handleOnChange}
                 required
               ></FloatingLabel>
@@ -104,31 +159,66 @@ function RegistrationForm() {
               <FloatingLabel
                 as="input"
                 controlId="floatingInput"
-                label="Password"
+                label="Confirm Password"
                 className="mb-2"
                 type="password"
-                name="password"
-                value={initialState.password}
+                inputId="confirmPass"
+                value={newUser.confirmPass}
                 onChange={handleOnChange}
                 required
               ></FloatingLabel>
             </Form.Group>
+            <Form.Text>
+              {!passwordError.confirmPassword && (
+                <small className="text-danger">Password doesn't match!</small>
+              )}
+            </Form.Text>
 
-            <Form.Group>
-              <FloatingLabel
-                as="input"
-                controlId="floatingInput"
-                label="Password"
-                className="mb-2"
-                type="password"
-                name="confirmPass"
-                value={initialState.confirmPass}
-                onChange={handleOnChange}
-                required
-              ></FloatingLabel>
-            </Form.Group>
+            <ul className="py-2">
+              <li
+                className={
+                  passwordError.hasLength ? "text-success" : "text-danger"
+                }
+              >
+                <small>Minimum 8 Characters</small>
+              </li>
+              <li
+                className={
+                  passwordError.hasUpper ? "text-success" : "text-danger"
+                }
+              >
+                <small>Should Contain Atleast One Upper Case Letter</small>
+              </li>
+              <li
+                className={
+                  passwordError.hasLower ? "text-success" : "text-danger"
+                }
+              >
+                <small>Should Contain Atleast One Lower Case Letter</small>
+              </li>
+              <li
+                className={
+                  passwordError.hasNumber ? "text-success" : "text-danger"
+                }
+              >
+                <small>Should Contain Atleast One Number</small>
+              </li>
+              <li
+                className={
+                  passwordError.hasSpecial ? "text-success" : "text-danger"
+                }
+              >
+                <small>
+                  Should Contain One of The Spectial Characters i.e, ! @ # $ % &
+                </small>
+              </li>
+            </ul>
 
-            <Button type="submit" className="mt-2">
+            <Button
+              type="submit"
+              className="py-2"
+              disabled={Object.values(passwordError).includes(false)}
+            >
               {/* disabled={isLoading} */}
               {/* {isLoading && (
                   <Spinner
@@ -145,7 +235,7 @@ function RegistrationForm() {
         </Card.Body>
 
         <Card.Body className="link-text">
-          <Card.Text className="py-2">
+          <Card.Text>
             Already Registered? <a href="/">Login Now!</a>
           </Card.Text>
         </Card.Body>
