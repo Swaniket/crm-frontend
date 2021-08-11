@@ -6,6 +6,22 @@ const userProfileURL = rootURL + "user";
 const logoutURL = rootURL + "user/logout";
 const newAccessJWT = rootURL + "tokens";
 
+export const userRegistration = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.post(userProfileURL, formData);
+      resolve(result.data);
+
+      if (result.data.status === "success") {
+        console.log(result.data);
+        resolve(result.data);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 export const userLogin = (formData) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -78,7 +94,7 @@ export const fetchNewAccessJWT = () => {
       resolve(true);
     } catch (e) {
       if (e.message === "Request failed with status code 403") {
-        localStorage.removeItem("crmSite")
+        localStorage.removeItem("crmSite");
       }
       reject(false);
     }

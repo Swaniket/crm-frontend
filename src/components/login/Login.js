@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Card,
+  Spinner,
+  Alert,
+  Row,
+  Col,
+} from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
 import { loginPending, loginSuccess, loginFail } from "./loginSlice";
 import { getUserProfile } from "../../pages/dashboard/userAction";
@@ -59,7 +68,13 @@ function LoginForm({ fromSwitcher }) {
       <Container>
         <Card.Body>
           <Card.Title className="heading-text text-center">
-            Client Login
+            CRM Ticket System
+          </Card.Title>
+          <Card.Title
+            className="heading-text text-center"
+            style={{ marginTop: 0 }}
+          >
+            <small>Sign In</small>
           </Card.Title>
         </Card.Body>
         <Card.Body>
@@ -93,18 +108,35 @@ function LoginForm({ fromSwitcher }) {
               ></FloatingLabel>
             </Form.Group>
 
-            <Button type="submit" className="mt-2" disabled={isLoading}>
-              {isLoading && (
-                <Spinner
-                  as="span"
-                  animation="grow"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-              )}{" "}
-              Login
-            </Button>
+            <Row>
+              <Col>
+                <Button type="submit" className="mt-2" disabled={isLoading}>
+                  {isLoading && (
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}{" "}
+                  Sign In
+                </Button>
+              </Col>
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddomg: 0,
+                  margin: 0,
+                }}
+              >
+                <Card.Text className="mt-2">
+                  <a href="/registration">Register Now!</a>
+                </Card.Text>
+              </Col>
+            </Row>
           </Form>
         </Card.Body>
 
@@ -112,9 +144,6 @@ function LoginForm({ fromSwitcher }) {
           <Card.Link href="#!" onClick={() => fromSwitcher("reset")}>
             Forgot Password
           </Card.Link>
-          <Card.Text className="py-2">
-            Don't have an account? <a href="/registration">Register Now!</a>
-          </Card.Text>
         </Card.Body>
       </Container>
     </Card>

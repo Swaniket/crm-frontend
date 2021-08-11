@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, Form, Button, Card, Spinner, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap-floating-label";
+import { userRegistrationAction } from "./userRegistrationAction";
 
 const initialState = {
   name: "",
@@ -22,8 +24,13 @@ const passVerificationError = {
 };
 
 function RegistrationForm() {
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState(initialState);
   const [passwordError, setPasswordError] = useState(passVerificationError);
+
+  const { isLoading, status, message } = useSelector(
+    (state) => state.registration
+  );
 
   useEffect(() => {}, [newUser]);
 
@@ -58,7 +65,7 @@ function RegistrationForm() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    // console.log(newUser);
+    dispatch(userRegistrationAction(newUser));
   };
 
   return (
@@ -70,6 +77,7 @@ function RegistrationForm() {
           </Card.Title>
         </Card.Body>
         <Card.Body>
+          {message && <Alert variant={status === 'success' ? 'success' : 'danger'}>{message}</Alert>}
           {/* {error && <Alert variant="danger">{error}</Alert>} */}
           <Form onSubmit={handleOnSubmit}>
             <Form.Group>
@@ -220,7 +228,7 @@ function RegistrationForm() {
               disabled={Object.values(passwordError).includes(false)}
             >
               {/* disabled={isLoading} */}
-              {/* {isLoading && (
+              {isLoading && (
                   <Spinner
                     as="span"
                     animation="grow"
@@ -228,7 +236,7 @@ function RegistrationForm() {
                     role="status"
                     aria-hidden="true"
                   />
-                )}{" "} */}
+                )}{" "}
               Register Now
             </Button>
           </Form>
