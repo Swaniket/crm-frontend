@@ -8,6 +8,7 @@ import Registration from "./pages/registration/RegistrationPage";
 import AddTicket from "./pages/new-ticket/AddTicket";
 import TicketList from "./pages/ticket-list/TicketList";
 import Ticket from "./pages/ticket/Ticket";
+import UserVerification from "./pages/user-verification/UserVerificationPage";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/registration" exact>
             <Registration />
+          </Route>
+          <Route path="/verification/:_id/:email" exact>
+            <UserVerification />
           </Route>
 
           <PrivateRoute path="/dashboard">

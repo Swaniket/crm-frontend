@@ -3,6 +3,7 @@ import axios from "axios";
 const rootURL = "http://localhost:3001/v1/";
 const loginURL = rootURL + "user/login";
 const userProfileURL = rootURL + "user";
+const userVerificationURL = userProfileURL + "/verify";
 const logoutURL = rootURL + "user/logout";
 const newAccessJWT = rootURL + "tokens";
 
@@ -18,6 +19,23 @@ export const userRegistration = (formData) => {
       }
     } catch (e) {
       reject(e);
+    }
+  });
+};
+
+export const userRegistrationVerification = (formData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await axios.patch(userVerificationURL, formData);
+      resolve(result.data);
+      console.log(result.data);
+
+      if (result.data.status === "success") {
+        console.log(result.data);
+        resolve(result.data);
+      }
+    } catch (error) {
+      reject({ status: "error", message: error.error });
     }
   });
 };

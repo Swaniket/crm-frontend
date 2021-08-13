@@ -65,7 +65,16 @@ function RegistrationForm() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    dispatch(userRegistrationAction(newUser));
+    const { name, phone, email, company, address, password } = newUser;
+    const newUserRegistration = {
+      name,
+      phone,
+      email,
+      company,
+      address,
+      password,
+    };
+    dispatch(userRegistrationAction(newUserRegistration));
   };
 
   return (
@@ -77,7 +86,11 @@ function RegistrationForm() {
           </Card.Title>
         </Card.Body>
         <Card.Body>
-          {message && <Alert variant={status === 'success' ? 'success' : 'danger'}>{message}</Alert>}
+          {message && (
+            <Alert variant={status === "success" ? "success" : "danger"}>
+              {message}
+            </Alert>
+          )}
           {/* {error && <Alert variant="danger">{error}</Alert>} */}
           <Form onSubmit={handleOnSubmit}>
             <Form.Group>
@@ -229,14 +242,14 @@ function RegistrationForm() {
             >
               {/* disabled={isLoading} */}
               {isLoading && (
-                  <Spinner
-                    as="span"
-                    animation="grow"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}{" "}
+                <Spinner
+                  as="span"
+                  animation="grow"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}{" "}
               Register Now
             </Button>
           </Form>
