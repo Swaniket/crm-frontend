@@ -141,7 +141,7 @@ function LoginForm({ fromSwitcher }) {
         </Card.Body>
 
         <Card.Body className="link-text">
-          <Card.Link href="#!" onClick={() => fromSwitcher("reset")}>
+          <Card.Link href="/password-reset">
             Forgot Password
           </Card.Link>
         </Card.Body>
