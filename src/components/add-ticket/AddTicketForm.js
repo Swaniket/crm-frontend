@@ -57,7 +57,6 @@ function AddTicketForm() {
       });
 
     dispatch(openNewTicket({ ...fromData, sender: name }));
-    console.log("DATA:", { ...fromData, sender: name });
   };
 
   return (

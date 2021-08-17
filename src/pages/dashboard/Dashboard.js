@@ -8,7 +8,7 @@ import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { fetchAllTickets } from "../ticket-list/ticketsAction";
 
 function Dashboard() {
-  var pendingTickets = 0
+  var pendingTickets = 0;
   const dispatch = useDispatch();
   const { tickets } = useSelector((state) => state.tickets);
 
@@ -18,16 +18,14 @@ function Dashboard() {
     }
   }, [tickets, dispatch]);
 
-  console.log(tickets)
-
-  tickets.map(row => {
+  tickets.map((row) => {
     if (row.status !== "Closed") {
-      pendingTickets += 1
+      pendingTickets += 1;
     }
-    return pendingTickets
-  })
+    return pendingTickets;
+  });
 
-  const totalTickets = tickets.length
+  const totalTickets = tickets.length;
 
   return (
     <Container>

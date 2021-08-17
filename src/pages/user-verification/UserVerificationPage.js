@@ -15,13 +15,10 @@ function UserVerification() {
 
   const [response, setResponse] = useState(initialResponse);
 
-  console.log(data);
-
   useEffect(() => {
     const apiCall = async () => {
       const result = await userRegistrationVerification(data);
       setResponse(result);
-      console.log(result);
     };
 
     !response.status && apiCall();
